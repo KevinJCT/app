@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginRight="20dp"
+    tools:context=".IngresoActividades">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="NUEVA ACTIVIDAD"
+            android:textColor="#3F51B5"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="118dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="TIPO ACTIVIDAD"
+            android:textColor="#3F51B5"
+            tools:layout_editor_absoluteX="24dp"
+            tools:layout_editor_absoluteY="54dp" />
+
+        <Spinner
+            android:id="@+id/spTipo"
+            android:layout_width="326dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:scrollbarSize="5dp"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
+            tools:layout_editor_absoluteX="22dp"
+            tools:layout_editor_absoluteY="82dp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="ACTIVIDAD"
+            android:textColor="#3F51B5"
+            tools:layout_editor_absoluteX="24dp"
+            tools:layout_editor_absoluteY="123dp" />
+
+        <Spinner
+            android:id="@+id/spActividad"
+            android:layout_width="326dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:scrollbarSize="5dp"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
+            tools:layout_editor_absoluteX="22dp"
+            tools:layout_editor_absoluteY="150dp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="PERSONA QUE SOLICITA"
+            android:textColor="#3F51B5"
+            tools:layout_editor_absoluteX="24dp"
+            tools:layout_editor_absoluteY="218dp" />
+
+        <Spinner
+            android:id="@+id/spEmpleados"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="ESTADO"
+            android:textColor="#3F51B5"
+            tools:layout_editor_absoluteX="24dp"
+            tools:layout_editor_absoluteY="281dp" />
+
+        <Spinner
+            android:id="@+id/spEstado"
+            android:layout_width="326dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:scrollbarSize="5dp"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
+            tools:layout_editor_absoluteX="22dp"
+            tools:layout_editor_absoluteY="311dp" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="HORAS"
+            android:textColor="#3F51B5"
+            tools:layout_editor_absoluteX="24dp"
+            tools:layout_editor_absoluteY="350dp" />
+
+        <EditText
+            android:id="@+id/edtHoras"
+            android:layout_width="82dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:ems="10"
+            android:inputType="number"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
+            tools:layout_editor_absoluteX="79dp"
+            tools:layout_editor_absoluteY="350dp" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="OBSERVACIONES"
+            android:textColor="#3F51B5"
+            tools:layout_editor_absoluteX="24dp"
+            tools:layout_editor_absoluteY="383dp" />
+
+        <EditText
+            android:id="@+id/edtObservacion"
+            android:layout_width="330dp"
+            android:layout_height="123dp"
+            android:layout_gravity="center_horizontal"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            tools:ignore="SpeakableTextPresentCheck"
+            tools:layout_editor_absoluteX="20dp"
+            tools:layout_editor_absoluteY="414dp" />
+
+        <Button
+            android:id="@+id/btnAgregar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="240dp"
+            android:layout_marginTop="20dp"
+            android:text="AGREGAR"
+            tools:layout_editor_absoluteX="246dp"
+            tools:layout_editor_absoluteY="592dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
