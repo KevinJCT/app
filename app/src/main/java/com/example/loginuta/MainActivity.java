@@ -35,24 +35,29 @@ public class MainActivity extends AppCompatActivity {
         btn_log = findViewById(R.id.btn_iniciar);
         btn_reg = findViewById(R.id.btn_registro);
 
-        btn_log.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                validar("http://192.168.101.3/login.php");
-            }
-        });
-
         btn_reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), IngresoActividades.class);
+                Intent intent = new Intent(getApplicationContext(), Cuenta.class);
+                Toast.makeText(MainActivity.this,"Si entro",Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
 
+
+        btn_log.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validar("http://192.168.101.3/agiles/login.php");
+            }
+        });
+
+
     }
 
     //---------/
+
+
 
     private void validar(String URL){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {

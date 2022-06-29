@@ -4,29 +4,50 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpResponse;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 public class Cuenta extends AppCompatActivity {
 
     EditText edtNombre, edtApellido, edtDireccion, edtTelefono,edtCorreo;
     Button btnGuardar;
     TextView jtxtCedula, jtxtFecNac, jtxtESpecialidad;
+    Spinner spnciudades;
+
+    AsyncHttpClient cliente;
+
+    String URL_LISTAR_CIUDAD="http://192.168.101.3/agiles/listar.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +62,61 @@ public class Cuenta extends AppCompatActivity {
         edtDireccion = (EditText) findViewById(R.id.edtDireccion);
         edtTelefono = (EditText) findViewById(R.id.edtTelefono);
         edtCorreo = (EditText) findViewById(R.id.edtCorreo);
+
+        cliente = new AsyncHttpClient();
+        spnciudades = (Spinner) findViewById(R.id.spnciudades);
+        llenarSpinner();
+
         //jtxtESpecialidad = (TextView) findViewById(R.id.jtxtEspecialidad);
 
-        consultarInformacionEmpleado();
-        btnGuardar.setOnClickListener(new View.OnClickListener() {
+        //consultarInformacionEmpleado();
+
+        /*btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 guardarInformacion();
 
             }
+        });*/
+
+    }
+
+
+    public void llenarSpinner(){
+        cliente.post(URL_LISTAR_CIUDAD, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode==200){
+                    cargarSpinner(new String(responseBody));
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+    Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
+    public void cargarSpinner(String respuesta){
+        ArrayList<Ciudad> lista = new ArrayList<Ciudad>();
+        try{
+            JSONArray jsonArray = new JSONArray(respuesta);
+            for (int i=0; i< jsonArray.length(); i++){
+                Ciudad c = new Ciudad();
+                c.setNombre(jsonArray.getJSONObject(i).getString("NOM_CIU"));
+                lista.add(c);
+
+            }
+            ArrayAdapter<Ciudad> adapterCiudad = new ArrayAdapter<Ciudad>(this, android.R.layout.simple_dropdown_item_1line,lista);
+            spnciudades.setAdapter(adapterCiudad);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+/*
     public Connection connectionBD(){
         Connection cnn = null;
         try {
@@ -105,5 +169,5 @@ public class Cuenta extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
-
+*/
 }

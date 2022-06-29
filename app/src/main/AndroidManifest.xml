@@ -15,12 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginUTA"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".Politicas"
+            android:exported="false" />
         <activity
             android:name=".IngresoActividades"
             android:exported="false" />
         <activity
             android:name=".Intermedio"
+            android:exported="false" />
+        <activity
+            android:name=".Cuenta"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
