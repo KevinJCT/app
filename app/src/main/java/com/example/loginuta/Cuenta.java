@@ -2,12 +2,14 @@ package com.example.loginuta;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -28,6 +30,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +43,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class Cuenta extends AppCompatActivity {
 
-    EditText edtNombre, edtApellido, edtDireccion, edtTelefono,edtCorreo;
+    EditText edtNombre, edtApellido, edtFecNac, edtDireccion, edtTelefono1, edtTelefono2;
     Button btnGuardar;
     TextView jtxtCedula, jtxtFecNac, jtxtESpecialidad;
     Spinner spnciudades;
@@ -48,6 +51,7 @@ public class Cuenta extends AppCompatActivity {
     AsyncHttpClient cliente;
 
     String URL_LISTAR_CIUDAD="http://192.168.101.3/agiles/listar.php";
+    Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +62,35 @@ public class Cuenta extends AppCompatActivity {
         btnGuardar = (Button) findViewById(R.id.btnGuardar);
         edtNombre = (EditText) findViewById(R.id.edtNombre);
         edtApellido = (EditText) findViewById(R.id.edtApellido);
-        jtxtFecNac = (TextView) findViewById(R.id.jtxtFecNac);
+        edtFecNac = (EditText) findViewById(R.id.edtFecNac);
         edtDireccion = (EditText) findViewById(R.id.edtDireccion);
-        edtTelefono = (EditText) findViewById(R.id.edtTelefono);
-        edtCorreo = (EditText) findViewById(R.id.edtCorreo);
+        edtTelefono1 = (EditText) findViewById(R.id.edtTelefono1);
+        edtTelefono2 = (EditText) findViewById(R.id.edtTelefono2);
 
         cliente = new AsyncHttpClient();
         spnciudades = (Spinner) findViewById(R.id.spnciudades);
+
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        edtFecNac.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Cuenta.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        month = month+1;
+                        String date = year+"/"+month+"/"+day;
+                        edtFecNac.setText(date);
+                    }
+                },year,month,day);
+                datePickerDialog.show();
+            }
+        });
+
+
+
         llenarSpinner();
 
         //jtxtESpecialidad = (TextView) findViewById(R.id.jtxtEspecialidad);

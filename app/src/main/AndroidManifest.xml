@@ -16,6 +16,9 @@
         android:theme="@style/Theme.LoginUTA"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".profesion"
+            android:exported="false" />
+        <activity
             android:name=".Politicas"
             android:exported="false" />
         <activity
