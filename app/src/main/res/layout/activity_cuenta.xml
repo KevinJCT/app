@@ -43,11 +43,13 @@
                     android:textColor="#3F51B5" />
 
                 <EditText
-                    android:id="@+id/jtxtCedula"
+                    android:id="@+id/edtCedula"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="number" />
+                    android:inputType="number"
+
+                    />
 
                 <TextView
                     android:id="@+id/textView2"
@@ -62,7 +64,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:maxLength="20"/>
 
                 <TextView
                     android:id="@+id/textView4"
@@ -70,14 +73,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="APELLIDO"
-                    android:textColor="#3F51B5" />
+                    android:textColor="#3F51B5"
+                    />
 
                 <EditText
                     android:id="@+id/edtApellido"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:maxLength="20"/>
 
                 <TextView
                     android:id="@+id/textView6"
@@ -93,7 +98,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -121,7 +127,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:maxLength="20"/>
 
                 <TextView
                     android:id="@+id/textView10"
@@ -136,7 +143,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:maxLength="10"/>
 
                 <TextView
                     android:id="@+id/textView7"
@@ -151,7 +159,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:maxLength="10"/>
 
                 <TextView
                     android:id="@+id/textView12"
@@ -162,11 +171,12 @@
                     android:textColor="#3F51B5" />
 
                 <EditText
-                    android:id="@+id/editTextTextPassword"
+                    android:id="@+id/edtPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:maxLength="15"/>
 
                 <Button
                     android:id="@+id/btnGuardar"

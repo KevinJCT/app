@@ -15,7 +15,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                     android:textColor="#3F51B5" />
 
                 <Spinner
-                    android:id="@+id/spinner"
+                    android:id="@+id/spnEstudio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -70,37 +70,50 @@
                     android:id="@+id/checkBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="CheckBox" />
+                    android:text="ELECTRICISTA" />
 
                 <CheckBox
                     android:id="@+id/checkBox2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="CheckBox" />
+                    android:text="CARPINTERO" />
 
                 <CheckBox
                     android:id="@+id/checkBox4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="CheckBox" />
+                    android:text="MECÁNICO" />
 
                 <CheckBox
                     android:id="@+id/checkBox3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="CheckBox" />
+                    android:text="PLOMERO" />
 
                 <CheckBox
                     android:id="@+id/checkBox5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="CheckBox" />
+                    android:text="ALBAÑIL" />
 
-                <CheckBox
-                    android:id="@+id/checkBox6"
+                <EditText
+                    android:id="@+id/editTextTextPersonName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="CheckBox" />
+                    android:ems="10"
+                    android:hint="OTRO"
+                    android:inputType="textPersonName" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="288dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="GUARDAR"
+                    app:icon="@android:drawable/ic_menu_save" />
+
             </LinearLayout>
         </ScrollView>
 

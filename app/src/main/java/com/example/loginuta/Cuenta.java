@@ -1,11 +1,10 @@
 package com.example.loginuta;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,57 +14,52 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpResponse;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
 public class Cuenta extends AppCompatActivity {
 
-    EditText edtNombre, edtApellido, edtFecNac, edtDireccion, edtTelefono1, edtTelefono2;
+    EditText edtCedula, edtNombre, edtApellido, edtFecNac, edtDireccion, edtTelefono1, edtTelefono2, edtPassword;
     Button btnGuardar;
-    TextView jtxtCedula, jtxtFecNac, jtxtESpecialidad;
     Spinner spnciudades;
-
     AsyncHttpClient cliente;
-
     String URL_LISTAR_CIUDAD="http://192.168.101.3/agiles/listar.php";
+    String URL_GUARDAR = "http://192.168.101.3/agiles/guardar.php";
     Calendar calendar = Calendar.getInstance();
-
+    String CED_TRA,NOM_TRA,APE_TRA,FEC_NAC_TRA,DIR_TRA,TEL1_TRA, TEL2_TRA, NAC_TRA, CON_TRA;
+    ArrayList<Ciudad> lista = new ArrayList<Ciudad>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cuenta);
 
-        jtxtCedula = (TextView) findViewById(R.id.jtxtCedula);
-        btnGuardar = (Button) findViewById(R.id.btnGuardar);
+        edtCedula = (EditText) findViewById(R.id.edtCedula);
         edtNombre = (EditText) findViewById(R.id.edtNombre);
         edtApellido = (EditText) findViewById(R.id.edtApellido);
         edtFecNac = (EditText) findViewById(R.id.edtFecNac);
         edtDireccion = (EditText) findViewById(R.id.edtDireccion);
         edtTelefono1 = (EditText) findViewById(R.id.edtTelefono1);
         edtTelefono2 = (EditText) findViewById(R.id.edtTelefono2);
+        edtPassword = (EditText) findViewById(R.id.edtPassword);
+
+        btnGuardar = (Button) findViewById(R.id.btnGuardar);
+
 
         cliente = new AsyncHttpClient();
         spnciudades = (Spinner) findViewById(R.id.spnciudades);
@@ -93,17 +87,78 @@ public class Cuenta extends AppCompatActivity {
 
         llenarSpinner();
 
-        //jtxtESpecialidad = (TextView) findViewById(R.id.jtxtEspecialidad);
-
-        //consultarInformacionEmpleado();
-
-        /*btnGuardar.setOnClickListener(new View.OnClickListener() {
+        btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                guardarInformacion();
+                if (validar()) {
+                    NAC_TRA = ideNacionalidad();
+                    Toast.makeText(Cuenta.this,NAC_TRA,Toast.LENGTH_LONG).show();
+                    ejecutarServicio(URL_GUARDAR);
+                }
 
             }
-        });*/
+        });
+
+    }
+
+    public String ideNacionalidad(){
+        String ide_ciu = "";
+        for(Ciudad ciudad : lista){
+            if (spnciudades.getSelectedItem().toString().equals(ciudad.getNombre())){
+                ide_ciu = ciudad.getId();
+            }
+        }
+        return ide_ciu;
+    }
+    public boolean  validar(){
+        boolean logico = true;
+
+        CED_TRA = edtCedula.getText().toString();
+        NOM_TRA = edtNombre.getText().toString();
+        APE_TRA=edtApellido.getText().toString();
+        FEC_NAC_TRA=edtFecNac.getText().toString();
+        DIR_TRA = edtDireccion.getText().toString();
+        TEL1_TRA = edtTelefono1.getText().toString();
+        TEL2_TRA = edtTelefono2.getText().toString();
+        CON_TRA = edtPassword.getText().toString();
+
+        if (CED_TRA.isEmpty() & CED_TRA.length()!=10){
+            edtCedula.setError("Campo vacio o error de caracteres ");
+            logico = false;
+        }
+        if (NOM_TRA.isEmpty() & NOM_TRA.length() > 20){
+            edtNombre.setError("Campo vacio o error de caracteres");
+            logico = false;
+        }
+        if (APE_TRA.isEmpty() & APE_TRA.length() > 20){
+            edtApellido.setError("Campo vacio o error de caracteres");
+            logico = false;
+        }
+        if (FEC_NAC_TRA.isEmpty()){
+            edtFecNac.setError("Campo vacio");
+            logico = false;
+        }
+
+        if  (DIR_TRA.isEmpty() & DIR_TRA.length()>20){
+            edtDireccion.setError("Campo vacio o error de caracteres");
+            logico = false;
+        }
+
+        if (TEL1_TRA.isEmpty() & TEL1_TRA.length() != 10){
+            edtTelefono1.setError("Campo vacio o error de caracteres");
+            logico = false;
+        }
+        if (TEL2_TRA.isEmpty() & TEL1_TRA.length() != 10){
+            edtTelefono2.setError("Campo vacio o error de caracteres");
+            logico = false;
+        }
+
+        if (CON_TRA.isEmpty() & CON_TRA.length() > 15){
+            edtPassword.setError("Campo vacio o error de caracteres");
+            logico = false;
+        }
+
+        return logico;
 
     }
 
@@ -125,11 +180,12 @@ public class Cuenta extends AppCompatActivity {
     }
 
     public void cargarSpinner(String respuesta){
-        ArrayList<Ciudad> lista = new ArrayList<Ciudad>();
+
         try{
             JSONArray jsonArray = new JSONArray(respuesta);
             for (int i=0; i< jsonArray.length(); i++){
                 Ciudad c = new Ciudad();
+                c.setId(jsonArray.getJSONObject(i).getString("IDE_CIU"));
                 c.setNombre(jsonArray.getJSONObject(i).getString("NOM_CIU"));
                 lista.add(c);
 
@@ -141,6 +197,38 @@ public class Cuenta extends AppCompatActivity {
         }
 
 
+    }
+
+    private void ejecutarServicio(String URL){
+        StringRequest StringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getApplicationContext(), "OPERACION EXITOSA", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String,String>();
+                parametros.put("CED_TRA",CED_TRA);
+                parametros.put("NOM_TRA",NOM_TRA);
+                parametros.put("APE_TRA",APE_TRA );
+                parametros.put("FEC_NAC_TRA",FEC_NAC_TRA);
+                parametros.put("DIR_TRA",DIR_TRA);
+                parametros.put("TEL1_TRA",TEL1_TRA);
+                parametros.put("TEL2_TRA",TEL2_TRA );
+                parametros.put("NAC_TRA", NAC_TRA);
+                parametros.put("CON_TRA",CON_TRA);
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(Cuenta.this);
+        requestQueue.add(StringRequest);
     }
 /*
     public Connection connectionBD(){
