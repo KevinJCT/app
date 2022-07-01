@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.json.JSONArray;
 
@@ -44,6 +45,7 @@ public class Cuenta extends AppCompatActivity {
     Calendar calendar = Calendar.getInstance();
     String CED_TRA,NOM_TRA,APE_TRA,FEC_NAC_TRA,DIR_TRA,TEL1_TRA, TEL2_TRA, NAC_TRA, CON_TRA;
     ArrayList<Ciudad> lista = new ArrayList<Ciudad>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,9 +62,10 @@ public class Cuenta extends AppCompatActivity {
 
         btnGuardar = (Button) findViewById(R.id.btnGuardar);
 
-
         cliente = new AsyncHttpClient();
         spnciudades = (Spinner) findViewById(R.id.spnciudades);
+
+        llenarSpinner();
 
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
@@ -85,8 +88,6 @@ public class Cuenta extends AppCompatActivity {
 
 
 
-        llenarSpinner();
-
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,6 +95,8 @@ public class Cuenta extends AppCompatActivity {
                     NAC_TRA = ideNacionalidad();
                     Toast.makeText(Cuenta.this,NAC_TRA,Toast.LENGTH_LONG).show();
                     ejecutarServicio(URL_GUARDAR);
+                }else{
+                    Toast.makeText(Cuenta.this,"Campos no validos",Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -126,11 +129,11 @@ public class Cuenta extends AppCompatActivity {
             edtCedula.setError("Campo vacio o error de caracteres ");
             logico = false;
         }
-        if (NOM_TRA.isEmpty() & NOM_TRA.length() > 20){
+        if (NOM_TRA.isEmpty() & NOM_TRA.length() < 20){
             edtNombre.setError("Campo vacio o error de caracteres");
             logico = false;
         }
-        if (APE_TRA.isEmpty() & APE_TRA.length() > 20){
+        if (APE_TRA.isEmpty() & APE_TRA.length() < 20){
             edtApellido.setError("Campo vacio o error de caracteres");
             logico = false;
         }
@@ -139,7 +142,7 @@ public class Cuenta extends AppCompatActivity {
             logico = false;
         }
 
-        if  (DIR_TRA.isEmpty() & DIR_TRA.length()>20){
+        if  (DIR_TRA.isEmpty() & DIR_TRA.length()<20){
             edtDireccion.setError("Campo vacio o error de caracteres");
             logico = false;
         }
@@ -152,9 +155,7 @@ public class Cuenta extends AppCompatActivity {
             edtTelefono2.setError("Campo vacio o error de caracteres");
             logico = false;
         }
-
-        if (CON_TRA.isEmpty() & CON_TRA.length() > 15){
-            edtPassword.setError("Campo vacio o error de caracteres");
+        if  (!validatepass(CON_TRA)){
             logico = false;
         }
 
@@ -162,6 +163,41 @@ public class Cuenta extends AppCompatActivity {
 
     }
 
+
+    public boolean validatepass(String password) {
+
+        boolean retorno =true;
+        // check for pattern
+        Pattern uppercase = Pattern.compile("[A-Z]");
+        Pattern lowercase = Pattern.compile("[a-z]");
+        Pattern digit = Pattern.compile("[0-9]");
+
+        // if lowercase character is not present
+        if (!lowercase.matcher(password).find()) {
+            edtPassword.setError("Error");
+            retorno =false;
+        }
+
+        // if uppercase character is not present
+        if (!uppercase.matcher(password).find()) {
+            edtPassword.setError("Error");
+            retorno =false;
+        }
+
+        // if digit is not present
+        if (!digit.matcher(password).find()) {
+            edtPassword.setError("Error");
+            retorno =false;
+        }
+        // if password length is less than 8
+        if (password.length() < 8 || password.length()>15) {
+            edtPassword.setError("Error");
+            retorno =false;
+        }
+
+        return  retorno;
+
+    }
 
     public void llenarSpinner(){
         cliente.post(URL_LISTAR_CIUDAD, new AsyncHttpResponseHandler() {
@@ -190,10 +226,11 @@ public class Cuenta extends AppCompatActivity {
                 lista.add(c);
 
             }
+
             ArrayAdapter<Ciudad> adapterCiudad = new ArrayAdapter<Ciudad>(this, android.R.layout.simple_dropdown_item_1line,lista);
             spnciudades.setAdapter(adapterCiudad);
         }catch (Exception e){
-            e.printStackTrace();
+            Toast.makeText(Cuenta.this,e.getMessage(),Toast.LENGTH_SHORT).show();
         }
 
 
@@ -230,6 +267,7 @@ public class Cuenta extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(Cuenta.this);
         requestQueue.add(StringRequest);
     }
+
 /*
     public Connection connectionBD(){
         Connection cnn = null;
