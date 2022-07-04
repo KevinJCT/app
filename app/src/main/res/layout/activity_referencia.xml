@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Profesion">
+    tools:context=".Referencia">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="90dp">
+        android:orientation="vertical">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -25,57 +23,66 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView13"
+                    android:id="@+id/textView18"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="REGISTRO PROFESIONAL"
+                    android:text="EXPERIENCIA LABORAL"
                     android:textAlignment="center"
                     android:textColor="#3F51B5"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvCedula"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:textColor="@color/purple_700"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/textView19"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="NIVEL DE ESTUDIO"
-                    android:textColor="#3F51B5" />
-
-                <Spinner
-                    android:id="@+id/spnEstudio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="HABILIDADES"
+                    android:text="EMPRESA"
                     android:textColor="#3F51B5" />
 
                 <EditText
-                    android:id="@+id/edtHabilidad"
+                    android:id="@+id/edtEmpresa"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="MECANICO"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:maxLength="20"/>
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="CARGO"
+                    android:textColor="#3F51B5" />
+
+                <EditText
+                    android:id="@+id/edtCargo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:maxLength="20"/>
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="TELÉFONO"
+                    android:textColor="#3F51B5" />
+
+                <EditText
+                    android:id="@+id/edtTelefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:maxLength="10"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -100,26 +107,20 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv1"
+                    android:id="@+id/rv2"
                     android:layout_width="match_parent"
-                    android:layout_height="259dp"
-                    android:layout_margin="10dp">
+                    android:layout_height="match_parent">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <Button
-                    android:id="@+id/btnSave"
-                    android:layout_width="288dp"
+                    android:id="@+id/btnSaveRef"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:text="GUARDAR"
-                    app:icon="@android:drawable/ic_menu_save" />
+                    android:text="Guardar" />
 
             </LinearLayout>
         </ScrollView>
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

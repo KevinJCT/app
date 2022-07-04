@@ -11,14 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -98,7 +92,7 @@ public class IngresoActividades extends AppCompatActivity implements AdapterView
         //OBSERVACIONES
         edtObservacion = (EditText) findViewById(R.id.edtObservacion);
 
-        btnAgregar = (Button) findViewById(R.id.btnAgregar);
+        btnAgregar = (Button) findViewById(R.id.btnAñadir);
 
         btnAgregar.setOnClickListener(v -> ejecutarServicio());
     }

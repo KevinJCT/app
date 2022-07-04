@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -95,6 +96,9 @@ public class Cuenta extends AppCompatActivity {
                     NAC_TRA = ideNacionalidad();
                     Toast.makeText(Cuenta.this,NAC_TRA,Toast.LENGTH_LONG).show();
                     ejecutarServicio(URL_GUARDAR);
+                    Intent i = new Intent(getApplicationContext(), Profesion.class);
+                    i.putExtra("CED_TRA",CED_TRA);
+                    startActivity(i);
                 }else{
                     Toast.makeText(Cuenta.this,"Campos no validos",Toast.LENGTH_LONG).show();
                 }

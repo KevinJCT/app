@@ -16,6 +16,9 @@
         android:theme="@style/Theme.LoginUTA"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Referencia"
+            android:exported="false" />
+        <activity
             android:name=".Profesion"
             android:exported="false" />
         <activity

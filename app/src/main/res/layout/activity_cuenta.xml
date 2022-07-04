@@ -40,7 +40,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="CÉDULA"
-                    android:textColor="#3F51B5" />
+                    android:textColor="#3F51B5"
+                    />
 
                 <EditText
                     android:id="@+id/edtCedula"
@@ -48,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="number"
-
+                    android:maxLength="10"
                     />
 
                 <TextView
@@ -98,8 +99,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    />
+                    android:hint="yyyy/mm/dd"
+                    android:inputType="textPersonName" />
 
                 <TextView
                     android:id="@+id/textView5"
